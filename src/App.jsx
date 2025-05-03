@@ -1,15 +1,18 @@
-import { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import JobApplicationsList from "./components/JobApplicationsList";
+import JobApplicationDetail from "./components/JobApplicationDetail";
+import JobApplicationCreate from "./components/JobApplicationCreate";
+import JobApplicationEdit from "./components/JobApplicationEdit";
 
-function App() {
-  const [message, setMessage] = useState('');
-
-  useEffect(() => {
-    fetch('http://localhost:4000/api/v1/hello')
-      .then((res) => res.json())
-      .then((data) => setMessage(data.message));
-  }, []);
-
-  return <h1>{message}</h1>;
+export default function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<JobApplicationsList />} />
+        <Route path="/new" element={<JobApplicationCreate />} />
+        <Route path="/:id" element={<JobApplicationDetail />} />
+        <Route path="/:id/edit" element={<JobApplicationEdit />} />
+      </Routes>
+    </Router>
+  );
 }
-
-export default App;
